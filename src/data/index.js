@@ -1,10 +1,11 @@
 import toppings from "./toppings";
-import crusts from "./crusts";
+import crusts, { neapolitanCrust } from "./crusts";
 import sizes, { smallSize } from "./sizes";
 
 export default {
   toppings,
   crusts,
   sizes,
-  defaultSize: smallSize.id,
+  default: { size: smallSize.id, crust: neapolitanCrust.id, toppings: [] },
+  currency: "$",
 };

@@ -4,31 +4,85 @@ const state = reactive({
   toppings: [],
   sizes: [],
   crusts: [],
-  defaultSize: null,
+  currency: "",
   selection: {
     size: "",
     toppings: [],
-    crust: "9f79668e-90f2-462d-bc96-69a11b1d939b",
+    crust: "",
   },
 });
 
-const total = computed(() => {
-  return 12;
+const getPrice = (value, showCurrency = true) => {
+  value = value || 0;
+  value = value.toFixed(2);
+
+  if (showCurrency) {
+    return `${state.currency}${value}`;
+  }
+
+  return parseFloat(value);
+};
+
+// Toppings - with actual price based on size selection
+
+const toppings = computed(() => {
+  const size = state.sizes.find((size) => size.id === state.selection.size);
+
+  return state.toppings.map((topping) => ({
+    ...topping,
+    price: getPrice(topping.price * size.toppingMultiplier, false),
+  }));
+});
+
+// Summary - order selection summary and total price
+
+const summary = computed(() => {
+  const size = state.sizes.find((size) => size.id === state.selection.size);
+  const crust = state.crusts.find((crust) => crust.id === state.selection.crust);
+
+  let toppingsTotal = 0;
+
+  const toppingsSummary = state.selection.toppings.map((id) => {
+    const topping = toppings.value.find((topping) => topping.id === id);
+    const price = topping.price;
+
+    toppingsTotal += price;
+
+    return {
+      id: topping.id,
+      name: topping.name,
+      price: getPrice(price),
+    };
+  });
+
+  const basePrice = size.price || 0;
+  const total = basePrice + toppingsTotal;
+
+  return {
+    base: {
+      label: `${size.size}" ${crust.name} pizza`,
+      price: getPrice(basePrice),
+    },
+    toppings: toppingsSummary,
+    total: getPrice(total),
+  };
 });
 
 export default function usePizza() {
   const load = async () => {
     try {
       const response = await import(`../data/index.js`);
+      const config = response.default;
 
       await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
+        setTimeout(resolve, 200);
       });
 
-      state.toppings = response.default.toppings;
-      state.sizes = response.default.sizes;
-      state.crusts = response.default.crusts;
-      state.defaultSize = state.sizes.find((size) => size.id === response.default.defaultSize) || null;
+      state.toppings = config.toppings;
+      state.sizes = config.sizes;
+      state.crusts = config.crusts;
+      state.selection = config.default;
+      state.currency = config.currency;
     } catch (error) {
       console.log("Error", error);
     }
@@ -49,7 +103,8 @@ export default function usePizza() {
   return {
     ...toRefs(state),
     load,
-    total,
+    toppings,
+    summary,
     ...actions,
   };
 }

@@ -2,52 +2,40 @@
   <form>
     <div>
       Sizes
-      <Sizes :options="sizes" :selected="size" @change="selectSize" />
+      <Sizes :options="sizes" :selected="selection.size" @change="selectSize" />
     </div>
     <div>
       Crusts
-      <Crust :options="crusts" :selected="crust" @change="selectCrust" />
+      <Crust :options="crusts" :selected="selection.crust" @change="selectCrust" />
     </div>
     <div>
       Toppings
       <Toppings :options="toppings" :selected="selection.toppings" @change="selectToppings" />
     </div>
   </form>
+  <OrderDetails />
   <div>
     {{ selection }}
   </div>
 </template>
 
 <script>
-import { computed } from "vue";
 import usePizza from "../store/pizza";
 import Toppings from "./Toppings.vue";
 import Sizes from "./Sizes.vue";
 import Crust from "./Crust.vue";
+import OrderDetails from "./OrderDetails.vue";
 
 export default {
-  components: { Toppings, Sizes, Crust },
+  components: { Toppings, Sizes, Crust, OrderDetails },
   async setup() {
-    const { sizes, crusts, toppings, defaultSize, selection, selectToppings, selectSize, selectCrust, load } =
-      usePizza();
-
-    // Load pizza options
+    const { sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, load } = usePizza();
 
     await load();
 
-    const size = computed(() => {
-      return selection.value.size || defaultSize.value.id;
-    });
-
-    const crust = computed(() => {
-      return selection.value.crust || crusts.value[0].id;
-    });
-
     return {
       sizes,
-      size,
       crusts,
-      crust,
       toppings,
       selection,
       selectSize,
@@ -57,3 +45,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div {
+  margin-bottom: 2rem;
+}
+</style>

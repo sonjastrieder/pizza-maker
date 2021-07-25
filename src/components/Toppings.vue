@@ -3,7 +3,7 @@
     <div v-for="topping in options" :key="topping.id">
       <label>
         <input v-model="selection" type="checkbox" name="topping" :value="topping.id" />
-        {{ topping.name }}: {{ topping.price }}</label
+        {{ topping.name }}</label
       >
     </div>
   </div>
