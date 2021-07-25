@@ -1,9 +1,11 @@
 <template>
-  <select @change="handleChange">
-    <option v-for="crust in options" :key="crust.id" :value="crust.id" :selected="crust.id === selected">
-      {{ crust.name }}: {{ crust.price }}
-    </option>
-  </select>
+  <div>
+    <select @change="handleChange">
+      <option v-for="crust in options" :key="crust.id" :value="crust.id" :selected="crust.id === selected">
+        {{ crust.name }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <script>
