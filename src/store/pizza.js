@@ -1,10 +1,19 @@
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
 
 const state = reactive({
   toppings: [],
   sizes: [],
   crusts: [],
   defaultSize: null,
+  selection: {
+    size: "",
+    toppings: [],
+    crust: "9f79668e-90f2-462d-bc96-69a11b1d939b",
+  },
+});
+
+const total = computed(() => {
+  return 12;
 });
 
 export default function usePizza() {
@@ -25,8 +34,22 @@ export default function usePizza() {
     }
   };
 
+  const actions = {
+    selectToppings: (toppings) => {
+      state.selection.toppings = toppings;
+    },
+    selectSize: (size) => {
+      state.selection.size = size;
+    },
+    selectCrust: (crust) => {
+      state.selection.crust = crust;
+    },
+  };
+
   return {
     ...toRefs(state),
     load,
+    total,
+    ...actions,
   };
 }
