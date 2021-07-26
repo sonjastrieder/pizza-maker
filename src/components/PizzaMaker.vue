@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import usePizza from "../store/pizza";
+import { inject } from "vue";
+import { PIZZA_STORE_KEY } from "@/common/constants";
 import Toppings from "./Toppings.vue";
 import Sizes from "./Sizes.vue";
 import Crust from "./Crust.vue";
@@ -35,9 +36,10 @@ import OrderDetails from "./OrderDetails.vue";
 export default {
   components: { Toppings, Sizes, Crust, OrderDetails },
   async setup() {
-    const { sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, reset, load } = usePizza();
+    const { status, sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, reset } =
+      inject(PIZZA_STORE_KEY);
 
-    await load();
+    await status.value;
 
     const submit = () => {
       console.log("submit");

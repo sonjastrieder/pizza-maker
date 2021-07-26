@@ -7,11 +7,12 @@
 </template>
 
 <script>
-import usePizza from "../store/pizza";
+import { inject } from "vue";
+import { PIZZA_STORE_KEY } from "@/common/constants";
 
 export default {
   setup() {
-    const { summary } = usePizza();
+    const { summary } = inject(PIZZA_STORE_KEY);
 
     return { summary };
   },

@@ -1,4 +1,4 @@
-import { reactive, toRefs, computed } from "vue";
+import { ref, reactive, toRefs, computed } from "vue";
 import { cloneDeep } from "@/common/cloneDeep";
 
 const state = reactive({
@@ -13,6 +13,28 @@ const state = reactive({
     crust: "",
   },
 });
+
+const fetchData = async () => {
+  try {
+    const response = await import(`../data/index.js`);
+    const config = response.default;
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 200);
+    });
+
+    state.toppings = config.toppings;
+    state.sizes = config.sizes;
+    state.crusts = config.crusts;
+    state.selection = cloneDeep(config.default);
+    state.preset = cloneDeep(config.default);
+    state.currency = config.currency;
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+const status = ref(fetchData());
 
 const getPrice = (value, showCurrency = true) => {
   value = value || 0;
@@ -70,49 +92,27 @@ const summary = computed(() => {
   };
 });
 
-export default function usePizza() {
-  const load = async () => {
-    try {
-      const response = await import(`../data/index.js`);
-      const config = response.default;
+const actions = {
+  selectToppings: (toppings) => {
+    state.selection.toppings = toppings;
+  },
+  selectSize: (size) => {
+    state.selection.size = size;
+  },
+  selectCrust: (crust) => {
+    state.selection.crust = crust;
+  },
+  reset: () => {
+    state.selection.size = state.preset.size;
+    state.selection.crust = state.preset.crust;
+    state.selection.toppings = [...state.preset.toppings];
+  },
+};
 
-      await new Promise((resolve) => {
-        setTimeout(resolve, 200);
-      });
-
-      state.toppings = config.toppings;
-      state.sizes = config.sizes;
-      state.crusts = config.crusts;
-      state.selection = cloneDeep(config.default);
-      state.preset = cloneDeep(config.default);
-      state.currency = config.currency;
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
-
-  const actions = {
-    selectToppings: (toppings) => {
-      state.selection.toppings = toppings;
-    },
-    selectSize: (size) => {
-      state.selection.size = size;
-    },
-    selectCrust: (crust) => {
-      state.selection.crust = crust;
-    },
-    reset: () => {
-      state.selection.size = state.preset.size;
-      state.selection.crust = state.preset.crust;
-      state.selection.toppings = [...state.preset.toppings];
-    },
-  };
-
-  return {
-    ...toRefs(state),
-    load,
-    toppings,
-    summary,
-    ...actions,
-  };
-}
+export default {
+  ...toRefs(state),
+  status,
+  toppings,
+  summary,
+  ...actions,
+};
