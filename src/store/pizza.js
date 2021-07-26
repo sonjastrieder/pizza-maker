@@ -5,7 +5,6 @@ const state = reactive({
   toppings: [],
   sizes: [],
   crusts: [],
-  currency: "",
   preset: {},
   selection: {
     size: "",
@@ -28,7 +27,6 @@ const fetchData = async () => {
     state.crusts = config.crusts;
     state.selection = cloneDeep(config.default);
     state.preset = cloneDeep(config.default);
-    state.currency = config.currency;
   } catch (error) {
     console.log("Error", error);
   }
@@ -36,25 +34,14 @@ const fetchData = async () => {
 
 const status = ref(fetchData());
 
-const getPrice = (value, showCurrency = true) => {
-  value = value || 0;
-  value = value.toFixed(2);
-
-  if (showCurrency) {
-    return `${state.currency}${value}`;
-  }
-
-  return parseFloat(value);
-};
-
-// Toppings - with actual price based on size selection
+// Toppings - with adjusted price based on size selection
 
 const toppings = computed(() => {
   const size = state.sizes.find((size) => size.id === state.selection.size);
 
   return state.toppings.map((topping) => ({
     ...topping,
-    price: getPrice(topping.price * size.toppingMultiplier, false),
+    price: topping.price * size.toppingMultiplier,
   }));
 });
 
@@ -75,7 +62,7 @@ const summary = computed(() => {
     return {
       id: topping.id,
       name: topping.name,
-      price: getPrice(price),
+      price: price,
     };
   });
 
@@ -85,10 +72,10 @@ const summary = computed(() => {
   return {
     base: {
       label: `${size.size}" ${crust.name} pizza`,
-      price: getPrice(basePrice),
+      price: basePrice,
     },
     toppings: toppingsSummary,
-    total: getPrice(total),
+    total: total,
   };
 });
 

@@ -7,5 +7,4 @@ export default {
   crusts,
   sizes,
   default: { size: smallSize.id, crust: neapolitanCrust.id, toppings: [] },
-  currency: "$",
 };

@@ -1,9 +1,9 @@
 <template>
-  <div>{{ summary.base.label }} {{ summary.base.price }}</div>
+  <div>{{ summary.base.label }} {{ formatPrice(summary.base.price) }}</div>
   <div v-if="summary.toppings">
-    <div v-for="topping in summary.toppings" :key="topping.id">{{ topping.name }} {{ topping.price }}</div>
+    <div v-for="topping in summary.toppings" :key="topping.id">{{ topping.name }} {{ formatPrice(topping.price) }}</div>
   </div>
-  <strong>Total {{ summary.total }}</strong>
+  <strong>Total {{ formatPrice(summary.total) }}</strong>
 </template>
 
 <script>
@@ -14,7 +14,11 @@ export default {
   setup() {
     const { summary } = inject(PIZZA_STORE_KEY);
 
-    return { summary };
+    const formatPrice = (number) => {
+      return new Intl.NumberFormat(undefined, { style: "currency", currency: "EUR" }).format(number);
+    };
+
+    return { summary, formatPrice };
   },
 };
 </script>
