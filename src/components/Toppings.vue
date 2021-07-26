@@ -2,7 +2,13 @@
   <div>
     <div v-for="topping in options" :key="topping.id">
       <label>
-        <input v-model="selection" type="checkbox" name="topping" :value="topping.id" />
+        <input
+          :checked="selected.includes(topping.id)"
+          type="checkbox"
+          name="topping"
+          :value="topping.id"
+          @change="handleChange"
+        />
         {{ topping.name }}</label
       >
     </div>
@@ -10,8 +16,6 @@
 </template>
 
 <script>
-import { ref, watchEffect } from "vue";
-
 export default {
   name: "Toppings",
   props: {
@@ -20,11 +24,20 @@ export default {
   },
   emits: ["change"],
   setup(props, { emit }) {
-    const selection = ref(props.selected || []);
+    const handleChange = (event) => {
+      const target = event.target;
 
-    watchEffect(() => emit("change", selection.value));
+      if (target.checked) {
+        emit("change", [...props.selected, target.value]);
+      } else {
+        emit(
+          "change",
+          props.selected.filter((value) => value !== target.value),
+        );
+      }
+    };
 
-    return { selection };
+    return { handleChange };
   },
 };
 </script>
