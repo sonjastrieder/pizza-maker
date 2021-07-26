@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent>
     <div>
       Sizes
       <Sizes :options="sizes" :selected="selection.size" @change="selectSize" />
@@ -12,8 +12,14 @@
       Toppings
       <Toppings :options="toppings" :selected="selection.toppings" @change="selectToppings" />
     </div>
+    <div>
+      <OrderDetails />
+      <div>
+        <button type="submit" @click="submit">Order now</button>
+        <button @click="reset">Reset</button>
+      </div>
+    </div>
   </form>
-  <OrderDetails />
   <div>
     {{ selection }}
   </div>
@@ -29,9 +35,13 @@ import OrderDetails from "./OrderDetails.vue";
 export default {
   components: { Toppings, Sizes, Crust, OrderDetails },
   async setup() {
-    const { sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, load } = usePizza();
+    const { sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, reset, load } = usePizza();
 
     await load();
+
+    const submit = () => {
+      console.log("submit");
+    };
 
     return {
       sizes,
@@ -41,6 +51,8 @@ export default {
       selectSize,
       selectToppings,
       selectCrust,
+      reset,
+      submit,
     };
   },
 };

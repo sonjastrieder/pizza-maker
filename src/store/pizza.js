@@ -1,10 +1,12 @@
 import { reactive, toRefs, computed } from "vue";
+import { cloneDeep } from "@/common/cloneDeep";
 
 const state = reactive({
   toppings: [],
   sizes: [],
   crusts: [],
   currency: "",
+  preset: {},
   selection: {
     size: "",
     toppings: [],
@@ -37,8 +39,8 @@ const toppings = computed(() => {
 // Summary - order selection summary and total price
 
 const summary = computed(() => {
-  const size = state.sizes.find((size) => size.id === state.selection.size);
-  const crust = state.crusts.find((crust) => crust.id === state.selection.crust);
+  const size = state.sizes.find((size) => size.id === state.selection.size) || {};
+  const crust = state.crusts.find((crust) => crust.id === state.selection.crust) || {};
 
   let toppingsTotal = 0;
 
@@ -81,7 +83,8 @@ export default function usePizza() {
       state.toppings = config.toppings;
       state.sizes = config.sizes;
       state.crusts = config.crusts;
-      state.selection = config.default;
+      state.selection = cloneDeep(config.default);
+      state.preset = cloneDeep(config.default);
       state.currency = config.currency;
     } catch (error) {
       console.log("Error", error);
@@ -97,6 +100,11 @@ export default function usePizza() {
     },
     selectCrust: (crust) => {
       state.selection.crust = crust;
+    },
+    reset: () => {
+      state.selection.size = state.preset.size;
+      state.selection.crust = state.preset.crust;
+      state.selection.toppings = [...state.preset.toppings];
     },
   };
 
