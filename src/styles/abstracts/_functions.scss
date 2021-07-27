@@ -1,0 +1,3 @@
+@function falsey($value) {
+  @return $value == false or $value == null or $value == "" or length($value) == 0;
+}

@@ -1,0 +1,134 @@
+html {
+  // 1. Prevent adjustments of font size after orientation changes in iOS.
+  // 2. Setting @viewport causes scrollbars to overlap content in IE11 and Edge, so
+  //    we force a non-overlapping, non-auto-hiding scrollbar to counteract.
+  // 3. Change the default tap highlight to be completely transparent in iOS.
+
+  box-sizing: border-box;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%; // 1
+  -ms-text-size-adjust: 100%; // 1
+  -ms-overflow-style: scrollbar; // 2
+  -webkit-tap-highlight-color: rgba(black, 0); // 3
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  &:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+// Remove default margins
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/// TYPOGRAPHY
+
+// Add the same font size in all browsers
+
+small {
+  font-size: 80%;
+}
+
+// Prevent `sub` and `sup` from affecting the line height in all browsers
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+// Add the correct font weight in Chrome/Edge/Safari
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+a[class] {
+  text-decoration: none;
+}
+
+// A elements that don't have a class get default styles
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+// Remove list styles on ul, ol elements with a list role
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+/// MEDIA
+
+// Make media elements responsive
+
+img,
+video,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/// FORMS
+
+// Inherit fonts for inputs and buttons
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/// Reduced motion
+
+// Remove all animations, transitions and smooth scroll for people that prefer reduced motion
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    &:focus-within {
+      scroll-behavior: auto;
+    }
+  }
+}

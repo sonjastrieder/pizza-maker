@@ -1,0 +1,21 @@
+@use 'sass:math';
+
+@mixin type($key) {
+  $style: map-get($type-map, $key);
+
+  @if ($style != null) {
+    $size: map-get($style, "size");
+    $leading: map-get($style, "leading");
+
+    @include fontSize($size, $leading);
+  }
+}
+
+// Convert font-size from px to rem and add calculated line-height
+
+@mixin fontSize($size, $leading: ($size + 8)) {
+  $leading: if(falsey($leading), $size + 8, $leading);
+
+  font-size: math.div($size, 16px) + rem;
+  line-height: math.div($leading, $size);
+}
