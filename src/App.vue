@@ -1,12 +1,14 @@
 <template>
-  <Suspense>
-    <template #default>
-      <PizzaMaker />
-    </template>
-    <template #fallback>
-      <div>Loading...</div>
-    </template>
-  </Suspense>
+  <div class="App">
+    <Suspense>
+      <template #default>
+        <PizzaMaker />
+      </template>
+      <template #fallback>
+        <div>Loading...</div>
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <script>
@@ -24,3 +26,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.App {
+  margin: var(--page-offset);
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="u-box">
     <Sizes :options="sizes" :selected="selection.size" @change="selectSize" />
     <Crust :options="crusts" :selected="selection.crust" @change="selectCrust" />
     <Toppings :options="toppings" :selected="selection.toppings" @change="selectToppings" />
@@ -16,7 +16,7 @@ import Crust from "./Crust.vue";
 export default {
   components: { Toppings, Sizes, Crust },
   async setup() {
-    const { status, sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, reset } =
+    const { status, sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust } =
       inject(PIZZA_STORE_KEY);
 
     await status.value;
@@ -33,9 +33,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-div {
-  margin-bottom: 2rem;
-}
-</style>

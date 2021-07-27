@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent>
     <OrderInputs />
-    <div>
+    <div class="u-box">
       <OrderDetails />
       <div>
         <button type="submit" @click="submit">Order now</button>
@@ -9,9 +9,6 @@
       </div>
     </div>
   </form>
-  <div>
-    {{ selection }}
-  </div>
 </template>
 
 <script>
