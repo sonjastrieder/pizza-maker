@@ -1,6 +1,7 @@
 <template>
   <div>
-    <select @change="handleChange">
+    <label for="crust">Crust</label>
+    <select id="crust" @change="handleChange">
       <option v-for="crust in options" :key="crust.id" :value="crust.id" :selected="crust.id === selected">
         {{ crust.name }}
       </option>

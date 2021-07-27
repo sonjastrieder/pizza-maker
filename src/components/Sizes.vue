@@ -1,6 +1,8 @@
 <template>
   <div class="range">
+    <label for="size">Size</label>
     <input
+      id="size"
       type="range"
       min="0"
       :max="options.length - 1"

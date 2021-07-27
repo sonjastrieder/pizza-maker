@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <fieldset>
+    <legend>Toppings</legend>
     <div v-for="topping in options" :key="topping.id">
       <label>
         <input
@@ -12,7 +13,7 @@
         {{ topping.name }}</label
       >
     </div>
-  </div>
+  </fieldset>
 </template>
 
 <script>

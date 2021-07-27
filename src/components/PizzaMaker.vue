@@ -1,17 +1,6 @@
 <template>
   <form @submit.prevent>
-    <div>
-      Sizes
-      <Sizes :options="sizes" :selected="selection.size" @change="selectSize" />
-    </div>
-    <div>
-      Crusts
-      <Crust :options="crusts" :selected="selection.crust" @change="selectCrust" />
-    </div>
-    <div>
-      Toppings
-      <Toppings :options="toppings" :selected="selection.toppings" @change="selectToppings" />
-    </div>
+    <OrderInputs />
     <div>
       <OrderDetails />
       <div>
@@ -28,16 +17,14 @@
 <script>
 import { inject } from "vue";
 import { PIZZA_STORE_KEY } from "@/common/constants";
-import Toppings from "./Toppings.vue";
-import Sizes from "./Sizes.vue";
-import Crust from "./Crust.vue";
+
+import OrderInputs from "./OrderInputs.vue";
 import OrderDetails from "./OrderDetails.vue";
 
 export default {
-  components: { Toppings, Sizes, Crust, OrderDetails },
+  components: { OrderInputs, OrderDetails },
   async setup() {
-    const { status, sizes, crusts, toppings, selection, selectToppings, selectSize, selectCrust, reset } =
-      inject(PIZZA_STORE_KEY);
+    const { status, reset, selection } = inject(PIZZA_STORE_KEY);
 
     await status.value;
 
@@ -46,22 +33,10 @@ export default {
     };
 
     return {
-      sizes,
-      crusts,
-      toppings,
-      selection,
-      selectSize,
-      selectToppings,
-      selectCrust,
       reset,
       submit,
+      selection,
     };
   },
 };
 </script>
-
-<style scoped>
-div {
-  margin-bottom: 2rem;
-}
-</style>
