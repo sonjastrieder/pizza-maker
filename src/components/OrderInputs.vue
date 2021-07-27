@@ -1,8 +1,8 @@
 <template>
-  <div class="u-box">
-    <Sizes :options="sizes" :selected="selection.size" @change="selectSize" />
-    <Crust :options="crusts" :selected="selection.crust" @change="selectCrust" />
-    <Toppings :options="toppings" :selected="selection.toppings" @change="selectToppings" />
+  <div class="OrderInputs u-box">
+    <Sizes class="OrderInputs-group" :options="sizes" :selected="selection.size" @change="selectSize" />
+    <Crust class="OrderInputs-group" :options="crusts" :selected="selection.crust" @change="selectCrust" />
+    <Toppings class="OrderInputs-group" :options="toppings" :selected="selection.toppings" @change="selectToppings" />
   </div>
 </template>
 
@@ -33,3 +33,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.OrderInputs {
+  & &-group {
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+</style>

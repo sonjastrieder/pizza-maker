@@ -1,5 +1,12 @@
+@import "node_modules/bootstrap/scss/forms/form-select";
+@import "node_modules/bootstrap/scss/forms/form-range";
+@import "node_modules/bootstrap/scss/forms/form-check";
+@import "node_modules/bootstrap/scss/buttons";
+
 @import "core/customProperties";
 @import "core/reset";
 @import "core/global";
+
+@import "utilities/typography";
 
 @import "shame";

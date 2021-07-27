@@ -1,8 +1,9 @@
 <template>
   <div class="range">
-    <label for="size">Size</label>
+    <label class="u-typeLabel" for="size">Size</label>
     <input
       id="size"
+      class="form-range"
       type="range"
       min="0"
       :max="options.length - 1"

@@ -1,11 +1,11 @@
 <template>
-  <form @submit.prevent>
+  <form class="PizzaMaker" @submit.prevent>
     <OrderInputs />
     <div class="u-box">
       <OrderDetails />
-      <div>
-        <button type="submit" @click="submit">Order now</button>
-        <button @click="reset">Reset</button>
+      <div class="PizzaMaker-ctrls">
+        <button class="PizzaMaker-btn btn btn-link" @click="reset">Reset</button>
+        <button class="PizzaMaker-btn btn btn-primary" type="submit" @click="submit">Order now</button>
       </div>
     </div>
   </form>
@@ -37,3 +37,18 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.PizzaMaker {
+  &-ctrls {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-btn {
+    & + & {
+      margin-left: 0.5rem;
+    }
+  }
+}
+</style>

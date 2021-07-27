@@ -1,9 +1,10 @@
 <template>
   <fieldset>
-    <legend>Toppings</legend>
-    <div v-for="topping in options" :key="topping.id">
-      <label>
+    <legend class="u-typeLabel">Toppings</legend>
+    <div v-for="topping in options" :key="topping.id" class="form-check">
+      <label class="form-check-label">
         <input
+          class="form-check-input"
           :checked="selected.includes(topping.id)"
           type="checkbox"
           name="topping"

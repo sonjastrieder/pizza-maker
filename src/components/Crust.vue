@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label for="crust">Crust</label>
-    <select id="crust" @change="handleChange">
+    <label for="crust" class="u-typeLabel u-block">Crust</label>
+    <select id="crust" class="form-select" @change="handleChange">
       <option v-for="crust in options" :key="crust.id" :value="crust.id" :selected="crust.id === selected">
         {{ crust.name }}
       </option>
