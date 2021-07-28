@@ -1,4 +1,8 @@
 :root {
-  --page-offset: 5vw;
+  --page-offset: 1.5rem;
   --radius: clamp(1rem, 2vw, 2.5rem);
+
+  @include media-breakpoint-up(sm) {
+    --page-offset: 5vw;
+  }
 }

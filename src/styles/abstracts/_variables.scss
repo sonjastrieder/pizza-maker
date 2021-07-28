@@ -3,9 +3,11 @@ $_blueWood: #2c3e50;
 /// Colors
 
 $c-base: $_blueWood;
+$c-primary: salmon;
 $c-white: #fff;
 $c-black: #000;
 $c-grey-light: #f5f1ee;
+$c-keyline: darken($c-grey-light, 5);
 
 /// Typography
 
@@ -16,6 +18,10 @@ $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
 $type-map: (
+  12: (
+    size: 12px,
+    leading: 18px,
+  ),
   16: (
     size: 16px,
     leading: 24px,
@@ -23,5 +29,13 @@ $type-map: (
   18: (
     size: 18px,
     leading: 27px,
+  ),
+  24: (
+    size: 24px,
+    leading: 32px,
+  ),
+  32: (
+    size: 32px,
+    leading: 42px,
   ),
 );

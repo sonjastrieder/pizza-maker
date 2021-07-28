@@ -1,6 +1,20 @@
-.u-typeLabel {
-  @include type(18);
+.u-typeH2 {
+  @include type(32);
 
   font-weight: $font-weight-bold;
+}
+
+.u-typeH3 {
+  @include type(24);
+
+  font-weight: $font-weight-bold;
+}
+
+.u-typeLabel {
+  @include type(12);
+
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
   margin-bottom: 0.5rem;
 }

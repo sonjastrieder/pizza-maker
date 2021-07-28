@@ -29,6 +29,6 @@ export default {
 
 <style lang="scss" scoped>
 .App {
-  margin: var(--page-offset);
+  margin: 0 var(--page-offset);
 }
 </style>

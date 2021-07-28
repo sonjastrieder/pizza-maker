@@ -70,10 +70,9 @@ const summary = computed(() => {
   const total = basePrice + toppingsTotal;
 
   return {
-    base: {
-      label: `${size.size}" ${crust.name} pizza`,
-      price: basePrice,
-    },
+    size: size,
+    crust: crust,
+    basePrice: basePrice,
     toppings: toppingsSummary,
     total: total,
   };

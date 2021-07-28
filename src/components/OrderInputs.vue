@@ -1,5 +1,5 @@
 <template>
-  <div class="OrderInputs u-box">
+  <div class="OrderInputs">
     <Sizes class="OrderInputs-group" :options="sizes" :selected="selection.size" @change="selectSize" />
     <Crust class="OrderInputs-group" :options="crusts" :selected="selection.crust" @change="selectCrust" />
     <Toppings class="OrderInputs-group" :options="toppings" :selected="selection.toppings" @change="selectToppings" />
@@ -38,7 +38,7 @@ export default {
 .OrderInputs {
   & &-group {
     &:not(:last-child) {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
     }
   }
 }
