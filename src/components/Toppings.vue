@@ -1,18 +1,20 @@
 <template>
-  <fieldset>
+  <fieldset class="Toppings">
     <legend class="u-typeLabel">Toppings</legend>
-    <div v-for="topping in options" :key="topping.id" class="form-check">
-      <label class="form-check-label">
-        <input
-          class="form-check-input"
-          :checked="selected.includes(topping.id)"
-          type="checkbox"
-          name="topping"
-          :value="topping.id"
-          @change="handleChange"
-        />
-        {{ topping.name }}</label
-      >
+    <div class="Toppings-options">
+      <div v-for="topping in options" :key="topping.id" class="form-check">
+        <label class="form-check-label">
+          <input
+            class="form-check-input"
+            :checked="selected.includes(topping.id)"
+            type="checkbox"
+            name="topping"
+            :value="topping.id"
+            @change="handleChange"
+          />
+          {{ topping.name }}</label
+        >
+      </div>
     </div>
   </fieldset>
 </template>
@@ -43,3 +45,28 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+$_labelSpacer: 0.25rem;
+$_gutter: 0.5rem;
+
+.Toppings {
+  &-options {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -$_labelSpacer;
+
+    // Increase checkbox clickarea
+
+    :deep(.form-check-label) {
+      display: inline-block;
+      padding-top: $_labelSpacer;
+      padding-bottom: $_labelSpacer;
+    }
+
+    > div {
+      flex: 0 0 50%;
+    }
+  }
+}
+</style>

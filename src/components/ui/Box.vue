@@ -37,25 +37,27 @@ export default {
 
 <style lang="scss" scoped>
 $_contentOffset: 2rem;
+$_offset: 2rem;
 
 .Box {
   $root: &;
 
   position: relative;
+  width: clamp(18rem, 80vw, 24rem);
+  margin-top: $_offset;
+  margin-bottom: $_offset;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 26px 0px rgba(black, 0.12);
 
   &-content,
   &-footer {
-    padding: 2.5rem 2rem;
-  }
-
-  &-footer {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 2.5rem 12%;
+    border-radius: var(--radius);
   }
 
   &-content {
-    width: clamp(18rem, 80vw, 24rem);
-    border-radius: var(--radius);
+    position: relative;
+    z-index: 10;
     background-color: $c-white;
   }
 
@@ -66,21 +68,23 @@ $_contentOffset: 2rem;
 
   &-footer {
     color: $c-white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: -5rem;
+    margin-left: -0.125rem;
+    margin-right: -0.125rem;
+    padding-top: 6rem;
+    background-color: $c-primary;
   }
 
+  // HAS
+
   &.has-footer {
-    margin-top: $_contentOffset + 4rem; // TODO: 2rem account for title only if it exists
     border-radius: var(--radius);
-    background-color: $c-primary;
 
     #{$root} {
       &-content {
-        margin: -$_contentOffset 0.125rem 0;
         padding-bottom: 1rem;
-      }
-
-      &-title {
-        bottom: calc(100% + #{$_contentOffset});
       }
     }
   }
@@ -89,19 +93,21 @@ $_contentOffset: 2rem;
 
   &--bottom {
     &.has-footer {
-      border-bottom-right-radius: 0;
+      margin-bottom: 0;
+
+      #{$root} {
+        &-footer {
+          border-bottom-right-radius: 0;
+        }
+      }
     }
   }
 
   @include media-breakpoint-up(sm) {
     &-content,
     &-footer {
-      padding: 2.5rem 3rem;
-    }
-
-    &-footer {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
     }
   }
 }

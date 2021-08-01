@@ -72,7 +72,7 @@ $_logoOffset: 4rem;
 
   &-inputs {
     position: relative;
-    margin-top: $_logoOffset;
+    margin-top: 1rem + $_logoOffset;
   }
 
   &-logo {

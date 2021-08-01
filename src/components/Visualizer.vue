@@ -89,7 +89,7 @@ export default {
     position: absolute;
     top: var(--topping-y);
     left: var(--topping-x);
-    width: clamp(4.5rem, 10%, 10vh);
+    width: clamp(4.5rem, 10%, 12vh);
     animation: dumpTopping var(--topping-speed) ease;
 
     &-img {
