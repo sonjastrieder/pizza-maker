@@ -4,24 +4,20 @@
       <img class="Visualizer-base-sauce" src="@/assets/pizza/sauce.svg" alt="" />
       <img class="Visualizer-base-crust" :src="getImageUrl(crust.image)" alt="" />
     </div>
-    <template v-for="topping in availableToppings" :key="topping.id">
-      <transition name="fade">
-        <div v-show="selectedToppingsIds.includes(topping.id)">
-          <div
-            v-for="index in getRandomInt(8, 12)"
-            :key="`${topping.id}${index}`"
-            class="Visualizer-topping"
-            :style="`
+    <template v-for="topping in selectedToppings" :key="topping.id">
+      <div
+        v-for="index in getRandomInt(8, 12)"
+        :key="`${topping.id}${index}`"
+        class="Visualizer-topping"
+        :style="`
               --topping-x: ${getRandomInt(0, 100)}%;
               --topping-y: ${getRandomInt(0, 100)}%;
               --topping-deg: ${getRandomInt(-200, 360)}deg;
               --topping-speed: ${getRandomInt(25, 75) / 100}s;
               `"
-          >
-            <img class="Visualizer-topping-img" :src="getImageUrl(topping.image)" alt="" />
-          </div>
-        </div>
-      </transition>
+      >
+        <img class="Visualizer-topping-img" :src="getImageUrl(topping.image)" alt="" />
+      </div>
     </template>
   </div>
 </template>
@@ -33,7 +29,7 @@ import mulberry32 from "@/common/mulberry32";
 
 export default {
   setup() {
-    const { summary, toppings } = inject(PIZZA_STORE_KEY);
+    const { summary } = inject(PIZZA_STORE_KEY);
 
     const crust = computed(() => {
       return summary.value.crust;
@@ -43,8 +39,8 @@ export default {
       return summary.value.size.size;
     });
 
-    const selectedToppingsIds = computed(() => {
-      return summary.value.toppings.map((topping) => topping.id);
+    const selectedToppings = computed(() => {
+      return summary.value.toppings;
     });
 
     let random = mulberry32(SEED);
@@ -60,18 +56,11 @@ export default {
       return Math.floor(random() * (max - min) + min);
     };
 
-    const availableToppings = computed(() => {
-      return toppings.value.map((topping) => ({
-        ...topping,
-        positioning: { x: getRandomInt(0, 100), y: getRandomInt(0, 100), rad: getRandomInt(0, 360) },
-      }));
-    });
-
     function getImageUrl(path) {
       return new URL(`../assets/${path}`, import.meta.url).href;
     }
 
-    return { crust, size, availableToppings, selectedToppingsIds, summary, getRandomInt, getImageUrl };
+    return { crust, size, selectedToppings, getRandomInt, getImageUrl };
   },
 };
 </script>
