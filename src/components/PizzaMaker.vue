@@ -16,6 +16,7 @@
       </template>
     </UiBox>
   </form>
+  <Visualizer />
 </template>
 
 <script>
@@ -25,10 +26,11 @@ import { PIZZA_STORE_KEY } from "@/common/constants";
 import Logo from "@/components/Logo.vue";
 import OrderInputs from "@/components/OrderInputs.vue";
 import OrderDetails from "@/components/OrderDetails.vue";
+import Visualizer from "@/components/Visualizer.vue";
 import UiBox from "@/components/ui/Box.vue";
 
 export default {
-  components: { Logo, OrderInputs, OrderDetails, UiBox },
+  components: { Logo, OrderInputs, OrderDetails, UiBox, Visualizer },
   async setup() {
     const { status, reset, selection } = inject(PIZZA_STORE_KEY);
 

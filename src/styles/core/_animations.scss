@@ -1,0 +1,21 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes dumpTopping {
+  from {
+    transform: translate(120%, 60%) rotate(45deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+}

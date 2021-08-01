@@ -63,6 +63,7 @@ const summary = computed(() => {
       id: topping.id,
       name: topping.name,
       price: price,
+      image: topping.image,
     };
   });
 
